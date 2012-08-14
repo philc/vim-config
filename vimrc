@@ -5,6 +5,8 @@ call pathogen#infect()
 set nocompatible " Use smarter defaults than Vi's.
 set nobackup " Don't write out backup files.
 set noswapfile
+set nowritebackup
+filetype plugin on
 
 " Chrome
 set encoding=utf-8
@@ -24,6 +26,7 @@ set laststatus=2
 set number
 set undofile
 set scrolloff=4 " Keep 4 lines of context when scrolling
+set shortmess+=I " Remove the default splash screen when a new file is created.
 
 " line wrapping
 set textwidth=110
@@ -53,7 +56,7 @@ set gdefault " Apply substitutions globally on a line.
 noremap <leader><space> :nohlsearch<cr>
 
 " Basic editing
-au FocusLost * :wa " Save file when focus is lost
+au FocusLost * silent! wa " Save file when focus is lost
 set shiftround " use multiples of shiftwidth when indenting with <
 set autoindent
 set copyindent
@@ -62,10 +65,17 @@ filetype plugin indent on
 " Textmate-style invisible char markers
 set list
 set listchars=tab:▸\ ,eol:¬
+
+" Colorscehem
 set background=dark
 if &t_Co >= 256 || has("gui_running")
   colorscheme mustang
   "colorscheme twilight256
+endif
+
+" Hide the macvim toolbar
+if has("gui_running")
+  set guioptions=egmrt
 endif
 
 let mapleader=";"
@@ -87,3 +97,29 @@ vnoremap <tab> %
 " leader-v to reselect pasted text, for indentation purposes etc.
 nnoremap <leader>v V`
 
+" Macvim Tabs
+" Meta-N to select a tab.
+noremap <D-1> 1gt
+noremap <D-2> 2gt
+noremap <D-3> 3gt
+noremap <D-4> 4gt
+noremap <D-5> 5gt
+noremap <D-6> 6gt
+noremap <D-7> 7gt
+noremap <D-8> 8gt
+noremap <D-9> 9gt
+noremap J gT
+noremap K gt
+
+" Window splits
+noremap <D-D> <C-W>v
+noremap <D-S-D> <C-W>s
+noremap <D-J> <C-W>j
+noremap <D-K> <C-W>k
+noremap <D-H> <C-W>h
+noremap <D-L> <C-W>l
+
+" commenting (provided by NERDCommenter
+let NERDSpaceDelims=1 " Insert one space after comment characters.
+map <D-/> <plug>NERDCommenterToggle
+map <leader>/ <plug>NERDCommenterToggle
