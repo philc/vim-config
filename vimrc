@@ -6,6 +6,7 @@ set nocompatible " Use smarter defaults than Vi's.
 set nobackup " Don't write out backup files.
 set noswapfile
 set nowritebackup
+set undodir=~/.vim/tmp/undo/ " store persistent undo files here.
 filetype plugin on
 
 " Chrome
@@ -52,7 +53,9 @@ set smartcase " if you include an uppercase while searching, become case sensiti
 set incsearch " show search matches as you type.
 set gdefault " Apply substitutions globally on a line.
 
-" Make it easy to clear searches 
+let mapleader=";"
+
+" Make it easy to clear searches
 noremap <leader><space> :nohlsearch<cr>
 
 " Basic editing
@@ -61,6 +64,7 @@ set shiftround " use multiples of shiftwidth when indenting with <
 set autoindent
 set copyindent
 filetype plugin indent on
+map <C-J> :join!
 
 " Textmate-style invisible char markers
 set list
@@ -78,8 +82,6 @@ if has("gui_running")
   set guioptions=egmrt
 endif
 
-let mapleader=";"
-
 " Edit and reload vim rc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -87,8 +89,10 @@ nmap <silent> <leader>sv :so $MYVIMRC<CR>
 " Make it easier to move around through blocks of text:
 noremap j gj
 noremap k gk
-noremap <C-u> 30k
-noremap <C-d> 30j
+noremap <C-u> 10k
+noremap <C-d> 10j
+noremap <C-J> 40j
+noremap <C-K> 40k
 
 " Tab is easier than % for selecting matched pairs. TODO(philc): vet
 nnoremap <tab> %
@@ -108,18 +112,26 @@ noremap <D-6> 6gt
 noremap <D-7> 7gt
 noremap <D-8> 8gt
 noremap <D-9> 9gt
-noremap J gT
-noremap K gt
+nnoremap J gT
+nnoremap K gt
 
 " Window splits
-noremap <D-D> <C-W>v
-noremap <D-S-D> <C-W>s
-noremap <D-J> <C-W>j
-noremap <D-K> <C-W>k
-noremap <D-H> <C-W>h
-noremap <D-L> <C-W>l
+noremap <D-d> <C-W>v
+noremap <D-D> <C-W>s
+noremap <D-j> <C-W>j
+noremap <D-k> <C-W>k
+noremap <D-h> <C-W>h
+noremap <D-l> <C-W>l
 
 " commenting (provided by NERDCommenter
 let NERDSpaceDelims=1 " Insert one space after comment characters.
 map <D-/> <plug>NERDCommenterToggle
 map <leader>/ <plug>NERDCommenterToggle
+
+" Command-T
+let g:CommandTMaxHeight=20
+let g:CommandTMinHeight=20 " This option doesn't seem to work as of Aug 13 2012.
+let g:CommandTMatchWindowAtTop=1
+
+" Nerd Tree
+nmap <leader>n :NERDTreeToggle<CR>

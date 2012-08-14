@@ -7,3 +7,9 @@
 [submodule "bundle/command-t"]
 	path = bundle/command-t
 	url = https://github.com/cespare/Command-T.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git

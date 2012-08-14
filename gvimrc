@@ -1,4 +1,4 @@
-set guifont=Menlo\ Regular:h16
+set guifont=Menlo\ Regular:h18
 
 " Unmap some of macvim's CMD bindings.
 if has("gui_macvim")
