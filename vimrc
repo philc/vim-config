@@ -11,7 +11,6 @@ filetype plugin on
 
 " Chrome
 set encoding=utf-8
-set scrolloff=3
 set showmode
 set showcmd
 set hidden " hide buffers when opening new files, without having to save.
@@ -70,10 +69,12 @@ set autoindent
 set copyindent
 filetype plugin indent on
 map <C-J> :join!
+set clipboard=unnamed " Use the OSX clipboard, not vim's own
 
 " Textmate-style invisible char markers
-set list
-set listchars=tab:▸\ ,eol:¬
+" note: setting list breaks the linebreak option.
+" set list
+" set listchars=tab:▸\ ,eol:¬
 
 " Colorscehem
 set background=dark
@@ -115,28 +116,54 @@ noremap <D-4> 4gt
 noremap <D-5> 5gt
 noremap <D-6> 6gt
 noremap <D-7> 7gt
-noremap <D-8> 8gt
-noremap <D-9> 9gt
-nnoremap J gT
-nnoremap K gt
+imap <D-1> <esc><D-1>
+imap <D-2> <esc><D-2>
+imap <D-3> <esc><D-3>
+imap <D-4> <esc><D-4>
+imap <D-5> <esc><D-5>
+imap <D-6> <esc><D-6>
+imap <D-7> <esc><D-7>
+noremap J gT
+noremap K gt
 
 " Window splits
-noremap <D-d> <C-W>v
-noremap <D-D> <C-W>s
-noremap <D-j> <C-W>j
-noremap <D-k> <C-W>k
-noremap <D-h> <C-W>h
-noremap <D-l> <C-W>l
+noremap <D-d> <C-w>v
+noremap <D-D> <C-w>s
+noremap <D-j> <C-w>j
+noremap <D-k> <C-w>k
+noremap <D-h> <C-w>h
+noremap <D-l> <C-w>l
+imap <D-d> <esc><D-d>
+imap <D-D> <esc><D-D>
+imap <D-j> <esc><D-j>
+imap <D-k> <esc><D-k>
+imap <D-h> <esc><D-h>
+imap <D-l> <esc><D-l>
 
 " commenting (provided by NERDCommenter
 let NERDSpaceDelims=1 " Insert one space after comment characters.
 map <D-/> <plug>NERDCommenterToggle
+imap <D-/> <esc><D-/>i
 map <leader>/ <plug>NERDCommenterToggle
 
 " Command-T
 let g:CommandTMaxHeight=20
 let g:CommandTMinHeight=20 " This option doesn't seem to work as of Aug 13 2012.
 let g:CommandTMatchWindowAtTop=1
+" <C-f> is supposed to refresh while commandT is open, but it doesn't work, so binding this manually.
+nnoremap <leader>r :CommandTFlush<CR>
 
 " Nerd Tree
 nmap <leader>n :NERDTreeToggle<CR>
+" These two are mapped to J and K by default. Unbind them so we can use J and K to switch tabs.
+let NERDTreeMapJumpFirstChild='_'
+let NERDTreeMapJumpLastChild='_'
+
+" Show extra whitespace
+hi ExtraWhitespace guibg=#666666
+hi ExtraWhitespace ctermbg=7
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
