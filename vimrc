@@ -31,10 +31,15 @@ set shortmess+=I " Remove the default splash screen when a new file is created.
 
 " line wrapping
 set textwidth=110
-set wrap
-set colorcolumn=111 " Show a margin indicator. todo this is ugly.
-set formatoptions=qrn1
-
+" set wrap
+set nolist " List disables linebreak.
+set linebreak " Wrap lines on whitespace, not in the middle of words.
+"set colorcolumn=111 " Show a margin indicator. todo this is ugly.
+" set formatoptions=qrn1
+let &wrapmargin= &textwidth
+set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
+                        " as expected.
+"set formatoptions+=t " Wrap text at 110 chars (textwidth) instead of the terminal's edge.
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
