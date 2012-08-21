@@ -68,8 +68,9 @@ set shiftround " use multiples of shiftwidth when indenting with <
 set autoindent
 set copyindent
 filetype plugin indent on
-map <C-J> :join!
+map <Leader>j :join<CR>
 set clipboard=unnamed " Use the OSX clipboard, not vim's own
+imap <C-d> <Del>
 
 " Textmate-style invisible char markers
 " note: setting list breaks the linebreak option.
@@ -127,8 +128,8 @@ noremap J gT
 noremap K gt
 
 " Window splits
-noremap <D-d> <C-w>v
-noremap <D-D> <C-w>s
+noremap <D-d> <C-w>s
+noremap <D-D> <C-w>v
 noremap <D-j> <C-w>j
 noremap <D-k> <C-w>k
 noremap <D-h> <C-w>h
@@ -167,3 +168,16 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+
+" VimClojure
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+" let vimclojure#WantNailgun = 1
+
+" Slimv
+let g:slimv_leader = ','
+" Eval the most recent command.
+nmap ,r :call SlimvEval([g:slimv_cmdhistory[-1]])<CR>
+vmap ,r :call SlimvEval([g:slimv_cmdhistory[-1]])<CR>
+let g:paredit_mode = 0 " turn this off for now.
+

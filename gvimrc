@@ -9,11 +9,15 @@ if has("gui_macvim")
 endif
 
 " Window splits
-noremap <D-D> <C-W>v
-noremap <D-S-D> <C-W>s
-noremap <D-J> <C-W>j
-noremap <D-K> <C-W>k
-noremap <D-H> <C-W>h
-noremap <D-L> <C-W>l
+noremap <D-j> <C-w>j
+noremap <D-k> <C-w>k
+noremap <D-h> <C-w>h
+noremap <D-l> <C-w>l
+imap <D-j> <esc><D-j>
+imap <D-k> <esc><D-k>
+imap <D-h> <esc><D-h>
+imap <D-l> <esc><D-l>
+
+
 
 

@@ -16,3 +16,9 @@
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
 	url = https://github.com/msanders/snipmate.vim.git
+[submodule "bundle/vim-clojure"]
+	path = bundle/vim-clojure
+	url = git://github.com/vim-scripts/VimClojure.git
+[submodule "bundle/slimv"]
+	path = bundle/slimv
+	url = https://github.com/vim-scripts/slimv.vim
