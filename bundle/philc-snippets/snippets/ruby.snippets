@@ -1,0 +1,23 @@
+# Nice debugging print
+snippet deb
+	puts ">>>> ${1:var}: #{$1.inspect}"${2}
+# Colored debugging print
+snippet debc
+	puts "\033[01;34m>>>> ${1:var}: #{$1.inspect}\e[m"${2}
+# Break with pry
+snippet pry
+	require "pry"; binding.pry
+snippet context
+	context "${1}" do
+		${2}
+	end
+snippet should
+	should "${1}" do
+	  ${2}
+	end
+snippet setup
+	setup do
+	  ${1}
+	end
+snippet shebang
+	#!/usr/bin/env ruby
