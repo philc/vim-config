@@ -18,6 +18,3 @@ imap <D-k> <esc><D-k>
 imap <D-h> <esc><D-h>
 imap <D-l> <esc><D-l>
 
-
-
-
