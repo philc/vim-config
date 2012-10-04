@@ -26,18 +26,18 @@ set undofile
 set scrolloff=4 " Keep 4 lines of context when scrolling
 set shortmess+=I " Remove the default splash screen when a new file is created.
 set autoread " When a file is changed outside of Vim, just reload it rather than asking what to do.
+set nofoldenable " I hate going into a file with parts folded. 
 
 " line wrapping
 set textwidth=110
 " set wrap
 set nolist " List disables linebreak.
-set linebreak " Wrap lines on whitespace, not in the middle of words.
+set linebreak
 set colorcolumn=110 " Show a margin indicator.
 " set formatoptions=qrn1
 let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
-"set formatoptions+=t " Wrap text at 110 chars (textwidth) instead of the terminal's edge.
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
@@ -108,7 +108,7 @@ endif
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
-" Make it easier to move around through blocks of text:
+" Make it easier to move around through multiline blocks of text:
 noremap j gj
 noremap k gk
 noremap <C-u> 10k
@@ -174,6 +174,8 @@ let g:CommandTMaxHeight=20
 let g:CommandTMinHeight=20 " This option doesn't seem to work as of Aug 13 2012.
 let g:CommandTMatchWindowAtTop=1" <C-f> is supposed to refresh while commandT is open, but it doesn't work, so binding this manually.
 nnoremap <leader>r :CommandTFlush<CR>
+" Omit class files from the listings
+set wildignore+=*.class
 
 " Nerd Tree
 nmap <leader>n :NERDTreeToggle<CR>
