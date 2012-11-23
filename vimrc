@@ -1,4 +1,4 @@
-" Pathogen for plugins.
+"lua Pathogen for plugins.
 filetype off
 call pathogen#infect()
 
@@ -141,6 +141,9 @@ imap <D-6> <esc><D-6>
 imap <D-7> <esc><D-7>
 noremap J gT
 noremap K gt
+" I'm using Spark to remap option tab to CMD+OPT+Tab, for tab switching.
+noremap <A-D-Left> gT
+noremap <A-D-Right> gt
 
 " Window splits
 noremap <D-d> <C-w>s
@@ -162,6 +165,10 @@ noremap <leader>- 6<C-W>-
 
 " Treat .txt files as markdown. All of my .txt notes are in markdown.
 au BufRead,BufNewFile *.txt set filetype=markdown
+" By default Vim treats .md as modula2.
+au BufRead,BufNewFile *.md set filetype=markdown
+" Treat .erb as html
+au BufRead,BufNewFile *.erb set filetype=html
 
 " commenting (provided by NERDCommenter
 let NERDSpaceDelims=1 " Insert one space after comment characters.
@@ -178,10 +185,14 @@ nnoremap <leader>r :CommandTFlush<CR>
 set wildignore+=*.class
 
 " Nerd Tree
-nmap <leader>n :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeTabsToggle<CR>
+" Focuses the current file in nerd tree.
+nmap <leader>f :NERDTreeFind<CR>
 " These two are mapped to J and K by default. Unbind them so we can use J and K to switch tabs.
 let NERDTreeMapJumpFirstChild='_'
 let NERDTreeMapJumpLastChild='_'
+let g:nerdtree_tabs_open_on_new_tab=0
+let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Show extra whitespace
 hi ExtraWhitespace guibg=#666666
@@ -206,11 +217,6 @@ let g:paredit_mode = 0 " turn this off for now.
 
 " Powerline
 let g:Powerline_symbols = 'unicode'
-" call Pl#Theme#RemoveSegment('charcode')
-" call Pl#Theme#RemoveSegment('filetype')
-" call Pl#Theme#RemoveSegment('pwd')
-" call Pl#Theme#RemoveSegment('scrollpercent')
-"
-" Using a customized powerline theme to remove segments, as suggested by 
+" Using a customized powerline theme to remove segments, as suggested by
 " http://stackoverflow.com/questions/11404863/how-to-remove-a-segment-in-vim-powerline
 let g:Powerline_theme='my_powerline_theme'
