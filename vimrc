@@ -26,7 +26,7 @@ set undofile
 set scrolloff=4 " Keep 4 lines of context when scrolling
 set shortmess+=I " Remove the default splash screen when a new file is created.
 set autoread " When a file is changed outside of Vim, just reload it rather than asking what to do.
-set nofoldenable " I hate going into a file with parts folded. 
+set nofoldenable " I hate going into a file with parts folded.
 
 " line wrapping
 set textwidth=110
@@ -206,17 +206,31 @@ autocmd BufWinLeave * call clearmatches()
 " VimClojure
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
-" let vimclojure#WantNailgun = 1
+let vimclojure#WantNailgun = 1
+let vimclojure#SplitSize = 16 " New popup windows have 16 lines.
+let maplocalleader = ','
+let vimclojure#SplitPos = "right"
+" let vimclojure#NailgunClient = "/home/reformist/.vim/bin/ng"
 
-" Slimv
-let g:slimv_leader = ','
-" Eval the most recent command.
-nmap ,r :call SlimvEval([g:slimv_cmdhistory[-1]])<CR>
-vmap ,r :call SlimvEval([g:slimv_cmdhistory[-1]])<CR>
-let g:paredit_mode = 0 " turn this off for now.
+" Correctly indent compojure and korma macros
+let g:vimclojure#FuzzyIndent = 1
+let g:vimclojure#FuzzyIndentPatterns = ",GET,POST,PUT,DELETE,select,insert,update,delete,fact,facts"
 
 " Powerline
 let g:Powerline_symbols = 'unicode'
 " Using a customized powerline theme to remove segments, as suggested by
 " http://stackoverflow.com/questions/11404863/how-to-remove-a-segment-in-vim-powerline
 let g:Powerline_theme='my_powerline_theme'
+
+" Strip trailing whitespace one save
+" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" misc hacks
+nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure<CR>
