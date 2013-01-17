@@ -38,6 +38,7 @@ set colorcolumn=110 " Show a margin indicator.
 let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
+autocmd FileType markdown set formatprg=~/scripts/code/markdown_formatter.rb
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
