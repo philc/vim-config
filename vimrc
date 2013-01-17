@@ -177,11 +177,8 @@ map <D-/> <plug>NERDCommenterToggle
 imap <D-/> <esc><D-/>i
 map <leader>/ <plug>NERDCommenterToggle
 
-" Command-T
-let g:CommandTMaxHeight=20
-let g:CommandTMinHeight=20 " This option doesn't seem to work as of Aug 13 2012.
-let g:CommandTMatchWindowAtTop=1" <C-f> is supposed to refresh while commandT is open, but it doesn't work, so binding this manually.
-nnoremap <leader>r :CommandTFlush<CR>
+" Ctrl-P
+nnoremap <leader>r :CtrlP .<CR>
 " Omit class files from the listings
 set wildignore+=*.class
 
