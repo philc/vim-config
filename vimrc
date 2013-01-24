@@ -43,7 +43,8 @@ set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing
 autocmd FileType markdown set formatprg=~/scripts/code/markdown_formatter.rb
 " Disable the annoying display of italics which is triggered by underscores_in_words.
 " http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
-autocmd FileType markdown clear syn markdownItalic
+" TODO(philc): For some reason this fails the first time a MD file is opened.
+autocmd FileType markdown :syn clear markdownItalic
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
