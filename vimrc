@@ -227,7 +227,7 @@ let g:Powerline_symbols = 'unicode'
 " http://stackoverflow.com/questions/11404863/how-to-remove-a-segment-in-vim-powerline
 let g:Powerline_theme='my_powerline_theme'
 
-" Strip trailing whitespace one save
+" Strip trailing whitespace on save
 " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -236,6 +236,47 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+
+" Rainbow parentheses
+let g:rbpt_max = 10
+let g:rbpt_colorpairs = [
+    \ ['gray',      'HotPink1'],
+    \ ['darkred',   'cyan1'],
+    \ ['darkcyan',  'brown1'],
+    \ ['darkgreen', 'yellow1'],
+    \ ['darkblue',  'MediumOrchid'],
+    \ ['gray',      'DeepSkyBlue1'],
+    \ ['darkred',   'DarkOrange1'],
+    \ ['darkcyan',  'LimeGreen'],
+    \ ['darkgreen', 'goldenrod1'],
+    \ ['darkblue',  'RoyalBlue1'],
+    \ ]
+
+" vim-clojure-static indentation
+let g:clojure_align_multiline_strings = 0
+let g:clojure_fuzzy_indent = 1
+let g:clojure_fuzzy_indent_patterns = ['with', 'def', 'let']
+" let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*"
+" let g:clojure_fuzzy_indent_patterns .= ",GET,POST,PUT,PATCH,DELETE"           " Compojure
+" let g:clojure_fuzzy_indent_patterns .= ",clone-for"                           " Enlive
+" let g:clojure_fuzzy_indent_patterns .= ",select.*,insert.*,update.*,delete.*" " Korma
+" let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
+" let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
+
+" Activate rainbow parentheses
+function! RainbowParenthesesReset()
+  RainbowParenthesesToggle
+  RainbowParenthesesLoadRound
+  RainbowParenthesesLoadSquare
+  RainbowParenthesesLoadBraces
+endfunction
+augroup rainbow_parentheses
+  autocmd!
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
+augroup end
 
 " misc hacks
 nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure
