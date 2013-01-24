@@ -38,7 +38,12 @@ set colorcolumn=110 " Show a margin indicator.
 let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
+
+" Markdown
 autocmd FileType markdown set formatprg=~/scripts/code/markdown_formatter.rb
+" Disable the annoying display of italics which is triggered by underscores_in_words.
+" http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
+autocmd FileType markdown clear syn markdownItalic
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
@@ -177,8 +182,10 @@ map <D-/> <plug>NERDCommenterToggle
 imap <D-/> <esc><D-/>i
 map <leader>/ <plug>NERDCommenterToggle
 
-" Ctrl-P
-nnoremap <leader>r :CtrlP .<CR>
+" Ctrl-P (cmd-t)
+nnoremap <leader>t :CtrlP .<CR>
+" Follow symlinks but ignore looped internal symlinks to avoid dupes.
+let g:ctrlp_follow_symlinks = 1
 " Omit class files from the listings
 set wildignore+=*.class
 
@@ -231,4 +238,4 @@ endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " misc hacks
-nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure<CR>
+nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure
