@@ -4,9 +4,6 @@
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule "bundle/command-t"]
-	path = bundle/command-t
-	url = https://github.com/cespare/Command-T.git
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
@@ -19,9 +16,6 @@
 [submodule "bundle/vim-clojure"]
 	path = bundle/vim-clojure
 	url = git://github.com/vim-scripts/VimClojure.git
-[submodule "bundle/slimv"]
-	path = bundle/slimv
-	url = https://github.com/vim-scripts/slimv.vim
 [submodule "bundle/powerline"]
 	path = bundle/powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
