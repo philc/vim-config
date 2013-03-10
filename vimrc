@@ -231,16 +231,6 @@ let g:Powerline_symbols = 'unicode'
 " http://stackoverflow.com/questions/11404863/how-to-remove-a-segment-in-vim-powerline
 let g:Powerline_theme='my_powerline_theme'
 
-" Strip trailing whitespace on save
-" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
 " Rainbow parentheses
 let g:rbpt_max = 10
 let g:rbpt_colorpairs = [
@@ -267,6 +257,14 @@ let g:clojure_fuzzy_indent_patterns = ['with', 'def', 'let']
 " let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
 " let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
 
+" Strip trailing whitespace on save
+" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 " Activate rainbow parentheses
 function! RainbowParenthesesReset()
   RainbowParenthesesToggle
