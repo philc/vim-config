@@ -187,6 +187,9 @@ map <leader>/ <plug>NERDCommenterToggle
 nnoremap <leader>t :CtrlP .<CR>
 " Follow symlinks but ignore looped internal symlinks to avoid dupes.
 let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '/public/assets/*',
+  \ }
 " Omit class files from the listings
 set wildignore+=*.class
 
