@@ -39,13 +39,6 @@ let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
 
-" Markdown
-autocmd FileType markdown set formatprg=~/scripts/code/markdown_formatter.rb
-" Disable the annoying display of italics which is triggered by underscores_in_words.
-" http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
-" TODO(philc): For some reason this fails the first time a MD file is opened.
-autocmd FileType markdown :syn clear markdownItalic
-
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
 set shiftwidth=2 "indent selections the same as softtabstop.
@@ -81,6 +74,13 @@ imap <C-d> <Del>
 imap <silent> <C-e> <ESC>A
 imap <silent> <C-a> <ESC>I
 
+" Reformat paragraph. I do this very commonly, so this is a shortcut.
+noremap <Leader>q gqap
+" Remove hard line breaks so we can paste into emails or other soft-wrap formats. w for "wrap".
+" Since we're using a script as our text formatter, pass the line length via an env var. `` restores cursor.
+" We not using a substition as in stackoverflow.com/q/2880109 so that we can preserve list formatting in md.
+noremap <leader>wap :let $LINE_LENGTH=10000<CR>gqap``<CR>:let $LINE_LENGTH=&textwidth<CR>
+noremap <leader>wG :let $LINE_LENGTH=10000<CR>Ggqgg``<CR>:let $LINE_LENGTH=&textwidth<CR>
 " Indentation in insert mode
 " These keys are alt+< and alt+> on OSX. They indent the line while preserving the cursor position.
 inoremap ≤ <C-d>
