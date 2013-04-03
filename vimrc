@@ -65,7 +65,7 @@ let mapleader=";"
 noremap <leader><space> :nohlsearch<cr>
 
 " Basic editing
-au FocusLost * silent! wa " Save file when focus is lost
+autocmd FocusLost * silent! wa " Save file when focus is lost
 set shiftround " use multiples of shiftwidth when indenting with <
 set autoindent
 set copyindent
@@ -95,8 +95,8 @@ inoremap ≥ <C-t>
 
 " Edit and reload vim rc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" nmap <silent> <leader>sv :so $MYVIMRC \| call RainbowParenthesesReset() \| call RainbowParenthesesReset()<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC \| :call RainbowParenthesesReset()<CR>
+" nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Make it easier to move around through multiline blocks of text:
 noremap j gj
@@ -155,17 +155,19 @@ noremap <leader>- 6<C-W>-
 
 " Markdown
 " Treat .txt files as markdown. All of my .txt notes are in markdown.
-au BufRead,BufNewFile *.txt set filetype=markdown
-" By default Vim treats .md as modula2.
-au BufRead,BufNewFile *.md set filetype=markdown
-" Disable the annoying display of italics which is triggered by underscores_in_words.
-" http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
-autocmd FileType markdown :syn clear markdownItalic
+let $LINE_LENGTH=&textwidth
+augroup markdown_philc
+  autocmd!
+  autocmd BufRead,BufNewFile *.txt set filetype=markdown
+  " By default Vim treats .md as modula2.
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+  " Disable the annoying display of italics which is triggered by underscores_in_words.
+  " http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
+  autocmd FileType markdown :syn clear markdownItalic
+  autocmd FileType markdown exec 'set formatprg=~/scripts/code/markdown_formatter.rb'
+augroup end
 " Render a markdown preview in a browser.
 nnoremap <LEADER>M :%w ! markdown_doctor \| bcat<CR><CR>
-
-let $LINE_LENGTH=&textwidth
-autocmd FileType markdown exec 'set formatprg=~/scripts/code/markdown_formatter.rb'
 
 " commenting (provided by NERDCommenter
 let NERDSpaceDelims=1 " Insert one space after comment characters.
@@ -195,8 +197,11 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 
 " Fireplace
 " Remap shift-k to leader k. I use shift-k for tab switching.
-autocmd BufEnter *.clj nmap <buffer> K gt
-autocmd BufEnter *.clj nmap <buffer> <leader>k <Plug>FireplaceK
+augroup fireplace_philc
+  autocmd!
+  autocmd BufEnter *.clj nmap <buffer> K gt
+  autocmd BufEnter *.clj nmap <buffer> <leader>k <Plug>FireplaceK
+augroup end
 
 " Powerline
 let g:Powerline_symbols = 'unicode'
@@ -209,15 +214,28 @@ let g:rbpt_max = 10
 let g:rbpt_colorpairs = [
     \ ['gray',      'HotPink1'],
     \ ['darkred',   'cyan1'],
-    \ ['darkcyan',  'brown1'],
+    \ ['darkcyan',  'RoyalBlue1'],
     \ ['darkgreen', 'yellow1'],
     \ ['darkblue',  'MediumOrchid'],
     \ ['gray',      'DeepSkyBlue1'],
     \ ['darkred',   'DarkOrange1'],
     \ ['darkcyan',  'LimeGreen'],
     \ ['darkgreen', 'goldenrod1'],
-    \ ['darkblue',  'RoyalBlue1'],
+    \ ['darkblue',  'brown1'],
     \ ]
+
+function! RainbowParenthesesReset()
+  RainbowParenthesesActivate
+  RainbowParenthesesLoadRound
+  RainbowParenthesesLoadBraces
+endfunction
+
+augroup rainbow_parentheses_philc
+  autocmd!
+  autocmd Filetype clojure RainbowParenthesesActivate
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadBraces
+augroup end
 
 " vim-clojure-static indentation
 let g:clojure_align_multiline_strings = 0
@@ -232,9 +250,9 @@ let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " 
 let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
 
 " Misc File types.
-au BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
+autocmd BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
 " Treat .erb as html
-au BufRead,BufNewFile *.erb set filetype=html
+autocmd BufRead,BufNewFile *.erb set filetype=html
 
 " Colorscheme
 set background=dark
@@ -256,26 +274,30 @@ hi ColorColumn ctermbg=darkgray guibg=#444444
 " Show extra whitespace
 hi ExtraWhitespace guibg=#664444
 hi ExtraWhitespace ctermbg=7
+
+" Strip trailing whitespace on save
+" http://stackoverflow.com/q/356126
+fun! <SID>StripTrailingWhitespaces()
+  let l = line(".")
+  let c = col(".")
+  %s/\s\+$//e
+  call cursor(l, c)
+endfun
+
 match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+augroup trailing_whitespace
+  autocmd!
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+  autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+augroup end
 
 " Hide the macvim toolbar
 if has("gui_running")
   set guioptions=egmrt
 endif
-
-" Strip trailing whitespace on save
-" http://stackoverflow.com/q/356126
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
 
 " misc hacks
 nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure
