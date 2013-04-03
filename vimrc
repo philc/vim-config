@@ -28,13 +28,12 @@ set shortmess+=I " Remove the default splash screen when a new file is created.
 set autoread " When a file is changed outside of Vim, just reload it rather than asking what to do.
 set nofoldenable " I hate going into a file with parts folded.
 
-" line wrapping
+" Line wrapping
 set textwidth=110
-" set wrap
+" Set wrap
 set nolist " List disables linebreak.
 set linebreak
 set colorcolumn=110 " Show a margin indicator.
-" set formatoptions=qrn1
 let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
@@ -92,6 +91,10 @@ noremap <leader>wG :let $LINE_LENGTH=10000<CR>Ggqgg``<CR>:let $LINE_LENGTH=&text
 " These keys are alt+< and alt+> on OSX. They indent the line while preserving the cursor position.
 inoremap ≤ <C-d>
 inoremap ≥ <C-t>
+
+" q{motion} begins a macro. I often hit q to exit Fireplace's outputs, and accidentally start recording
+" a macro. Disable macro recording for now.
+noremap q <esc>
 
 " Edit and reload vim rc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
