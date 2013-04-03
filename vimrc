@@ -95,6 +95,7 @@ inoremap ≥ <C-t>
 
 " Edit and reload vim rc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" nmap <silent> <leader>sv :so $MYVIMRC \| call RainbowParenthesesReset() \| call RainbowParenthesesReset()<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " Make it easier to move around through multiline blocks of text:
@@ -152,12 +153,19 @@ imap <D-l> <esc><D-l>
 noremap <leader>= 6<C-W>+
 noremap <leader>- 6<C-W>-
 
+" Markdown
 " Treat .txt files as markdown. All of my .txt notes are in markdown.
 au BufRead,BufNewFile *.txt set filetype=markdown
 " By default Vim treats .md as modula2.
 au BufRead,BufNewFile *.md set filetype=markdown
-" Treat .erb as html
-au BufRead,BufNewFile *.erb set filetype=html
+" Disable the annoying display of italics which is triggered by underscores_in_words.
+" http://stackoverflow.com/questions/10964681/enabling-markdown-highlighting-in-vim
+autocmd FileType markdown :syn clear markdownItalic
+" Render a markdown preview in a browser.
+nnoremap <LEADER>M :%w ! markdown_doctor \| bcat<CR><CR>
+
+let $LINE_LENGTH=&textwidth
+autocmd FileType markdown exec 'set formatprg=~/scripts/code/markdown_formatter.rb'
 
 " commenting (provided by NERDCommenter
 let NERDSpaceDelims=1 " Insert one space after comment characters.
