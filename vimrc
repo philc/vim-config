@@ -93,31 +93,6 @@ noremap <leader>wG :let $LINE_LENGTH=10000<CR>Ggqgg``<CR>:let $LINE_LENGTH=&text
 inoremap ≤ <C-d>
 inoremap ≥ <C-t>
 
-" Textmate-style invisible char markers
-" note: setting list breaks the linebreak option.
-" set list
-" set listchars=tab:▸\ ,eol:¬
-
-" Colorscehem
-set background=dark
-if &t_Co >= 256 || has("gui_running")
-  " colorscheme Tomorrow-Night-Bright
-  colorscheme mustang
-  " Some customizations to the Mustang theme.
-  hi Todo guifg=#808080 guibg=#000000 gui=italic ctermfg=244 " Don't make todos so loud.
-  hi Comment gui=none " turn off italics for comments and strings.
-  hi String gui=none
-  hi Function gui=none " The function identification for clojure is sketchy so don't bold some and not others
-endif
-
-" Make the margin indicator more subtle than the default red.
-hi ColorColumn ctermbg=darkgray guibg=#444444
-
-" Hide the macvim toolbar
-if has("gui_running")
-  set guioptions=egmrt
-endif
-
 " Edit and reload vim rc
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -210,27 +185,10 @@ let NERDTreeMapJumpLastChild='_'
 let g:nerdtree_tabs_open_on_new_tab=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" Show extra whitespace
-hi ExtraWhitespace guibg=#666666
-hi ExtraWhitespace ctermbg=7
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" VimClojure
-let g:vimclojure#HighlightBuiltins = 1
-let g:vimclojure#ParenRainbow = 1
-let vimclojure#WantNailgun = 1
-let vimclojure#SplitSize = 16 " New popup windows have 16 lines.
-let maplocalleader = ','
-let vimclojure#SplitPos = "right"
-" let vimclojure#NailgunClient = "/home/reformist/.vim/bin/ng"
-
-" Correctly indent compojure and korma macros
-let g:vimclojure#FuzzyIndent = 1
-let g:vimclojure#FuzzyIndentPatterns = ",GET,POST,PUT,DELETE,select,insert,update,delete,fact,facts"
+" Fireplace
+" Remap shift-k to leader k. I use shift-k for tab switching.
+autocmd BufEnter *.clj nmap <buffer> K gt
+autocmd BufEnter *.clj nmap <buffer> <leader>k <Plug>FireplaceK
 
 " Powerline
 let g:Powerline_symbols = 'unicode'
@@ -256,16 +214,53 @@ let g:rbpt_colorpairs = [
 " vim-clojure-static indentation
 let g:clojure_align_multiline_strings = 0
 let g:clojure_fuzzy_indent = 1
-let g:clojure_fuzzy_indent_patterns = ['with', 'def', 'let']
-" let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*"
-" let g:clojure_fuzzy_indent_patterns .= ",GET,POST,PUT,PATCH,DELETE"           " Compojure
-" let g:clojure_fuzzy_indent_patterns .= ",clone-for"                           " Enlive
-" let g:clojure_fuzzy_indent_patterns .= ",select.*,insert.*,update.*,delete.*" " Korma
-" let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
-" let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
+" let g:clojure_fuzzy_indent_patterns = ['with', 'def', 'let']
+let g:clojure_fuzzy_indent_patterns = "with.*,def.*,let.*,send.*"
+let g:clojure_fuzzy_indent_patterns .= ",cli.*" " Clojure core
+let g:clojure_fuzzy_indent_patterns .= ",GET,POST,PUT,PATCH,DELETE,context"           " Compojure
+let g:clojure_fuzzy_indent_patterns .= ",clone-for"                           " Enlive
+let g:clojure_fuzzy_indent_patterns .= ",select.*,insert.*,update.*,delete.*,with.*" " Korma
+let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
+let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
+
+" Misc File types.
+au BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
+" Treat .erb as html
+au BufRead,BufNewFile *.erb set filetype=html
+
+" Colorscheme
+set background=dark
+if &t_Co >= 256 || has("gui_running")
+  " colorscheme Tomorrow-Night-Bright
+  colorscheme mustang
+  " Some customizations to the Mustang theme.
+  hi Todo guifg=#808080 guibg=#000000 gui=italic ctermfg=244 " Don't make todos so loud.
+  " So gitgutter looks nicer.
+  hi SignColumn guibg=black
+  hi Comment gui=none " turn off italics for comments and strings.
+  hi String gui=none
+  hi Function gui=none " The function identification for clojure is sketchy so don't bold some and not others
+endif
+
+" Make the margin indicator more subtle than the default red.
+hi ColorColumn ctermbg=darkgray guibg=#444444
+
+" Show extra whitespace
+hi ExtraWhitespace guibg=#664444
+hi ExtraWhitespace ctermbg=7
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" Hide the macvim toolbar
+if has("gui_running")
+  set guioptions=egmrt
+endif
 
 " Strip trailing whitespace on save
-" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+" http://stackoverflow.com/q/356126
 fun! <SID>StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -273,20 +268,6 @@ fun! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
-" Activate rainbow parentheses
-function! RainbowParenthesesReset()
-  RainbowParenthesesToggle
-  RainbowParenthesesLoadRound
-  RainbowParenthesesLoadSquare
-  RainbowParenthesesLoadBraces
-endfunction
-augroup rainbow_parentheses
-  autocmd!
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
-augroup end
 
 " misc hacks
 nnoremap <F2> :autocmd BufEnter handler.clj edit \| set filetype=clojure
