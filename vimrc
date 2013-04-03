@@ -38,6 +38,9 @@ set colorcolumn=110 " Show a margin indicator.
 let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
+" Indent lines after pasting them. Important for when you paste a line inside an if block and it's not
+" indented properly inside the if. If this has bad edge cases, try https://github.com/sickill/vim-pasta
+nnoremap p p`[v`]=
 
 " Tabs
 set tabstop=2 "the width hard tab characters are rendered.
