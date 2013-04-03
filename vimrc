@@ -71,8 +71,11 @@ set autoindent
 set copyindent
 filetype plugin indent on
 set nojoinspaces " When joining lines, Vim inserts two spaces if a line ends with a period. Turn that off.
+" These are later remapped to move between tabs.
 noremap <Leader>j J
+noremap <Leader>k K
 set clipboard=unnamed " Use the OSX clipboard, not vim's own
+" Emacs-style bindings in insert mode.
 imap <C-d> <Del>
 imap <silent> <C-e> <ESC>A
 imap <silent> <C-a> <ESC>I
@@ -84,6 +87,7 @@ noremap <Leader>q gqap
 " We not using a substition as in stackoverflow.com/q/2880109 so that we can preserve list formatting in md.
 noremap <leader>wap :let $LINE_LENGTH=10000<CR>gqap``<CR>:let $LINE_LENGTH=&textwidth<CR>
 noremap <leader>wG :let $LINE_LENGTH=10000<CR>Ggqgg``<CR>:let $LINE_LENGTH=&textwidth<CR>
+
 " Indentation in insert mode
 " These keys are alt+< and alt+> on OSX. They indent the line while preserving the cursor position.
 inoremap ≤ <C-d>
@@ -149,9 +153,9 @@ imap <D-4> <esc><D-4>
 imap <D-5> <esc><D-5>
 imap <D-6> <esc><D-6>
 imap <D-7> <esc><D-7>
+" J is join lines and K is look up in docs/man. I remap those to <leader>J and K.
 noremap J gT
 noremap K gt
-" I'm using Spark to remap option tab to CMD+OPT+Tab, for tab switching.
 noremap <A-D-Left> gT
 noremap <A-D-Right> gt
 
