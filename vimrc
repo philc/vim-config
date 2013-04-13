@@ -58,7 +58,7 @@ set smartcase " if you include an uppercase while searching, become case sensiti
 set incsearch " show search matches as you type.
 set gdefault " Apply substitutions globally on a line.
 
-" Spellcheck. It's turn on for markdown and txt files.
+" Spellcheck.
 set spell
 set spellfile=$HOME/.vim/spellfile.en.utf-8.add
 " This function ignores URLs and file paths when spellchecking. Note that some file types set `syntax spell
