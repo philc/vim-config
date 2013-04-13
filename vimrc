@@ -1,4 +1,4 @@
-"lua Pathogen for plugins.
+"Pathogen for plugins.
 filetype off
 call pathogen#infect()
 
@@ -58,6 +58,24 @@ set smartcase " if you include an uppercase while searching, become case sensiti
 set incsearch " show search matches as you type.
 set gdefault " Apply substitutions globally on a line.
 
+" Spellcheck. It's turn on for markdown and txt files.
+set spell
+set spellfile=$HOME/.vim/spellfile.en.utf-8.add
+" This function ignores URLs and file paths when spellchecking. Note that some file types set `syntax spell
+" toplevel` and must be treated differently than other groups.
+" - http://stackoverflow.com/questions/7561603/vim-spell-check-ignore-capitalized-words
+fun! SetupSpellCheckIgnoreRules()
+  if (&filetype=='markdown')
+    syn match spellcheckURL /\<http[^ ]\+/
+    syn match spellcheckFilepath / \/.*\>/
+  else
+    syn match spellcheckURL /\<http[^ ]\+/ contains=@NoSpell transparent
+    syn match spellcheckFilepath / \/.*\>/ contains=@NoSpell transparent
+    syn cluster Spell add=spellcheckURL
+    syn cluster Spell add=spellcheckFilepath
+  endif
+endfun
+
 let mapleader=";"
 
 " Make it easy to clear searches
@@ -83,7 +101,7 @@ imap <silent> <C-a> <ESC>I
 noremap <Leader>q gqap
 " Remove hard line breaks so we can paste into emails or other soft-wrap formats. w for "wrap".
 " Since we're using a script as our text formatter, pass the line length via an env var. `` restores cursor.
-" We not using a substition as in stackoverflow.com/q/2880109 so that we can preserve list formatting in md.
+" We not using a substitution as in stackoverflow.com/q/2880109 so that we can preserve list formatting in md.
 noremap <leader>wap :let $LINE_LENGTH=10000<CR>gqap``<CR>:let $LINE_LENGTH=&textwidth<CR>
 noremap <leader>wG :let $LINE_LENGTH=10000<CR>Ggqgg``<CR>:let $LINE_LENGTH=&textwidth<CR>
 
@@ -295,6 +313,12 @@ augroup trailing_whitespace
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
   autocmd BufWinLeave * call clearmatches()
   autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+augroup end
+
+augroup spelling_group
+  autocmd!
+  " Don't highlight URLs and file paths in spellcheck.
+  autocmd BufRead,BufNewFile * :call SetupSpellCheckIgnoreRules()
 augroup end
 
 " Hide the macvim toolbar
