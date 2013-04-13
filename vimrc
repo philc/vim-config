@@ -59,8 +59,7 @@ set incsearch " show search matches as you type.
 set gdefault " Apply substitutions globally on a line.
 
 " Spellcheck.
-set spell
-set spellfile=$HOME/.vim/spellfile.en.utf-8.add
+set spell " My custom spellfile is in ~/.vim/spell/en.utf-8.add
 " This function ignores URLs and file paths when spellchecking. Note that some file types set `syntax spell
 " toplevel` and must be treated differently than other groups.
 " - http://stackoverflow.com/questions/7561603/vim-spell-check-ignore-capitalized-words
