@@ -272,9 +272,12 @@ let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " 
 let g:clojure_fuzzy_indent_patterns .= ",when-eiligible,with-eligible-values "
 
 " Misc File types.
-autocmd BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
-" Treat .erb as html
-autocmd BufRead,BufNewFile *.erb set filetype=html
+augroup misc_filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
+  " Treat .erb as html
+  autocmd BufRead,BufNewFile *.erb set filetype=html
+augroup end
 
 " Colorscheme
 set background=dark
