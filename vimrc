@@ -269,6 +269,7 @@ let g:clojure_fuzzy_indent_patterns .= ",clone-for"                           " 
 let g:clojure_fuzzy_indent_patterns .= ",select.*,insert.*,update.*,delete.*,with.*" " Korma
 let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
 let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
+let g:clojure_fuzzy_indent_patterns .= ",when-eiligible,with-eligible-values "
 
 " Misc File types.
 autocmd BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
