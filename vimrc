@@ -58,20 +58,25 @@ set smartcase " if you include an uppercase while searching, become case sensiti
 set incsearch " show search matches as you type.
 set gdefault " Apply substitutions globally on a line.
 
-" Spellcheck.
+" Spellcheck
 set spell " My custom spellfile is in ~/.vim/spell/en.utf-8.add
 " This function ignores URLs and file paths when spellchecking. Note that some file types set `syntax spell
 " toplevel` and must be treated differently than other groups.
 " - http://stackoverflow.com/questions/7561603/vim-spell-check-ignore-capitalized-words
 fun! SetupSpellCheckIgnoreRules()
   if (&filetype=='markdown')
+    syn case match
     syn match spellcheckURL /\<http[^ ]\+/
     syn match spellcheckFilepath / \/.*\>/
+    syn match spellcheckCamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/
+    syn case ignore
   else
     syn match spellcheckURL /\<http[^ ]\+/ contains=@NoSpell transparent
     syn match spellcheckFilepath / \/.*\>/ contains=@NoSpell transparent
+    syn match spellcheckCamelCase /\<[A-Z][a-z]\+[A-Z].\{-}\>/ contains=@NoSpell transparent
     syn cluster Spell add=spellcheckURL
     syn cluster Spell add=spellcheckFilepath
+    syn cluster Spell add=spellcheckCamelCase
   endif
 endfun
 
@@ -80,6 +85,7 @@ let mapleader=";"
 " Make it easy to clear searches
 noremap <leader><space> :nohlsearch<cr>
 
+call SetupSpellCheckIgnoreRules()
 " Basic editing
 autocmd FocusLost * silent! wa " Save file when focus is lost
 set shiftround " use multiples of shiftwidth when indenting with <
