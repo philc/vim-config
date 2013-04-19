@@ -279,7 +279,7 @@ let g:clojure_fuzzy_indent_patterns .= ",when-eiligible,with-eligible-values "
 " Misc File types.
 augroup misc_filetypes
   autocmd!
-  autocmd BufNewFile,BufRead Guardfile,.Guardfile set filetype=ruby
+  autocmd BufNewFile,BufRead Guardfile,.Guardfile,Vagrantfile set filetype=ruby
   " Treat .erb as html
   autocmd BufRead,BufNewFile *.erb set filetype=html
 augroup end
