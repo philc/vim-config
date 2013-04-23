@@ -50,6 +50,7 @@ set expandtab "Use spaces instead of tabs.
 highlight Cursor guibg=LightGoldenRod guifg=LightGoldenRod
 set bg=dark
 syntax on
+set synmaxcol=200 " Don't syntax highlight super long lines. It makes Vim scrolling very sluggish.
 
 " Searching
 set hlsearch
