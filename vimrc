@@ -34,7 +34,6 @@ set textwidth=110
 set nolist " List disables linebreak.
 set linebreak
 set colorcolumn=110 " Show a margin indicator.
-let &wrapmargin= &textwidth
 set formatoptions=croql " Now it shouldn't hard-wrap long lines as you're typing (annoying), but you can gq
                         " as expected.
 " Indent lines after pasting them. Important for when you paste a line inside an if block and it's not
