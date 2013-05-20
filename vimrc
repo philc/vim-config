@@ -258,6 +258,10 @@ let g:rbpt_colorpairs = [
     \ ]
 
 function! RainbowParenthesesReset()
+  " Rainbow parentheses breaks the syntax highlighting of vim-less.
+  if &ft =~ 'less'
+    return
+  endif
   RainbowParenthesesActivate
   RainbowParenthesesLoadRound
   RainbowParenthesesLoadBraces
@@ -265,9 +269,9 @@ endfunction
 
 augroup rainbow_parentheses_philc
   autocmd!
-  autocmd Filetype clojure RainbowParenthesesActivate
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadBraces
+  autocmd Filetype clojure,ruby RainbowParenthesesActivate
+  autocmd Filetype clojure,ruby RainbowParenthesesLoadRound
+  autocmd Filetype clojure,ruby RainbowParenthesesLoadBraces
 augroup end
 
 " vim-clojure-static indentation
