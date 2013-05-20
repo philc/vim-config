@@ -102,7 +102,11 @@ imap <C-d> <Del>
 imap <silent> <C-e> <ESC>A
 imap <silent> <C-a> <ESC>I
 
-" Reformat paragraph. I do this very commonly, so this is a shortcut.
+" Insert newlines without entering insert mode. From the Vim wiki.
+map <S-Enter> O<Esc>
+map <CR> o<Esc>
+
+" Reformat paragraph. I do this very often, so this is a shortcut.
 noremap <Leader>q gqap
 " Remove hard line breaks so we can paste into emails or other soft-wrap formats. w for "wrap".
 " Since we're using a script as our text formatter, pass the line length via an env var. `` restores cursor.
