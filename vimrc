@@ -196,6 +196,9 @@ augroup markdown_philc
   autocmd FileType markdown :syn clear markdownItalic
   autocmd FileType markdown exec 'set formatprg=~/scripts/code/markdown_formatter.rb'
 augroup end
+" Shortcut for writing a markdown header line. http://qr.ae/py0vk
+nmap <leader>h1 V"zy"zpVr=
+nmap <leader>h2 V"zy"zpVr-
 " Render a markdown preview in a browser.
 nnoremap <LEADER>M :%w ! markdown_doctor \| bcat<CR><CR>
 
