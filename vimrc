@@ -341,6 +341,13 @@ augroup spelling_group
   autocmd BufRead,BufNewFile * :call SetupSpellCheckIgnoreRules()
 augroup end
 
+" Set line wrapping to 72 chars when writing gitcommit messages, which is conventional
+augroup gitcommit
+  autocmd!
+  autocmd FileType gitcommit :set textwidth=72
+  autocmd FileType gitcommit :set colorcolumn=72
+augroup end
+
 " Hide the macvim toolbar
 if has("gui_running")
   set guioptions=egmrt
