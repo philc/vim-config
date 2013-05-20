@@ -284,8 +284,8 @@ let g:clojure_fuzzy_indent_patterns .= ",GET,POST,PUT,PATCH,DELETE,context"     
 let g:clojure_fuzzy_indent_patterns .= ",clone-for"                           " Enlive
 let g:clojure_fuzzy_indent_patterns .= ",select.*,insert.*,update.*,delete.*,with.*" " Korma
 let g:clojure_fuzzy_indent_patterns .= ",fact,facts"                          " Midje
-let g:clojure_fuzzy_indent_patterns .= ",up,down"                             " Lobos
-let g:clojure_fuzzy_indent_patterns .= ",when-eiligible,with-eligible-values "
+let g:clojure_fuzzy_indent_patterns .= ",up,down,table"                             " Lobos
+let g:clojure_fuzzy_indent_patterns .= ",when-eiligible,with-eligible-values,url-of-form"
 
 " Misc File types.
 augroup misc_filetypes
