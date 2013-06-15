@@ -218,6 +218,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 " Omit class files from the listings
 set wildignore+=*.class
+set wildignore+=*.log
 
 " Nerd Tree
 nmap <leader>n :NERDTreeTabsToggle<CR>
