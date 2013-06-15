@@ -97,7 +97,8 @@ set nojoinspaces " When joining lines, Vim inserts two spaces if a line ends wit
 noremap <Leader>j J
 noremap <Leader>k K
 set clipboard=unnamed " Use the OSX clipboard, not vim's own
-" Emacs-style bindings in insert mode.
+
+" Emacs-style bindings in insert mode. tpope has wrapped this into the "rsi" vim plugin.
 imap <C-d> <Del>
 imap <silent> <C-e> <ESC>A
 imap <silent> <C-a> <ESC>I
