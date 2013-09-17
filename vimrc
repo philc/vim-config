@@ -145,7 +145,7 @@ vnoremap <tab> %
 nnoremap <leader>v V`
 
 " Macvim Tabs
-" Meta-N to select a tab.
+" Meta-# to select a tab.
 noremap <D-1> 1gt
 noremap <D-2> 2gt
 noremap <D-3> 3gt
@@ -160,11 +160,11 @@ imap <D-4> <esc><D-4>
 imap <D-5> <esc><D-5>
 imap <D-6> <esc><D-6>
 imap <D-7> <esc><D-7>
-" J is join lines and K is look up in docs/man. I remap those to <leader>J and K.
-noremap J gT
-noremap K gt
+" These are mapped to CMD+J and CMD+K by KeyRemap4Macbook, which I use for tab switching.
 noremap <A-D-Left> gT
 noremap <A-D-Right> gt
+imap <A-D-Left> <esc>gT
+imap <A-D-Right> <esc>gt
 
 " Window splits
 noremap <D-d> <C-w>s
