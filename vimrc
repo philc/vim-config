@@ -214,11 +214,12 @@ nnoremap <leader>t :CtrlP .<CR>
 " Follow symlinks but ignore looped internal symlinks to avoid dupes.
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '/public/assets/*',
+  \ 'dir': '/public/assets/*,/beancounter_logs/*'
   \ }
 " Omit class files from the listings
 set wildignore+=*.class
 set wildignore+=*.log
+set wildignore+=*.gz
 
 " Nerd Tree
 nmap <leader>n :NERDTreeTabsToggle<CR>
